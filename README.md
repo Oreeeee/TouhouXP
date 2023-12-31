@@ -1,7 +1,7 @@
 # Patched TH17 and TH18 executables (trial and full) to run on unmodified Windows XP or Windows 2000 with Extended Kernel
 
 ## How?
-This patch modifies the header values of the executables to require Windows 2000 instead of Windows Vista. Without this patch, you will get `thXX.exe is not a valid Win32 application` error. Touhou 17 and 18 uses only APIs availible in XP (and 2000 Extended Kernel), so this patch can just work. In total, only 2 bytes get patched in total.
+This patch modifies the header values of the executables to require Windows 2000 instead of Windows Vista. Without this patch, you will get `thXX.exe is not a valid Win32 application` error. Touhou 17 and 18 uses only APIs availible in XP (and 2000 Extended Kernel), so this patch can just work. In total, only 2 bytes get patched.
 
 ## Installation
 
