@@ -19,6 +19,13 @@ Quoting [this article](https://www.thpatch.net/wiki/How_to_patch_a_new_Touhou_ga
 
 However, future games without networking might be patchable.
 
+## Known issues
+- `custom.exe` refuses to work
+
+## TODO
+- Fix custom.exe issues
+- Make a more user friendly patcher
+
 ## Screenshots
 ![th17 on Windows XP](assets/th17.png)
 
