@@ -8,26 +8,50 @@ gcc -m32 -O2 -s -o patcher.exe patcher.c
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
+#include <io.h>
+#include <conio.h>
+#include <ctype.h>
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 
-#define MOSV_OFFSET 0x40
-#define MSV_OFFSET 0x48
-#define NT5_MAJOR 0x5
+#define MOSV_OFFSET 0x40 /* MajorOperatingSystemVersion */
+#define MSV_OFFSET 0x48 /* MajorSubsystemVersion */
+#define NT5_MAJOR 0x5 /* NT 5.0 (W2K) */
+#define GAME_NAME_BUF 16
+#define GAMES_COUNT 3
 
-int main(int argc, char **argv) {
+const char GAMES[GAMES_COUNT][GAME_NAME_BUF] = {"th17.exe", "th18.exe", "custom.exe"};
+
+bool choice() {
+    char in = tolower(getch());
+    if (in == 'y') {
+        return true;
+    }
+    return false;
+}
+
+void loudExit(int code) {
+    printf("Press any key to exit...\n");
+    getch();
+    exit(code);
+}
+
+void patchGame(const char *gameName) {
     FILE *fp;
     int pe_offset = 0;
     char readBuf[3];
 
-    if (argc != 2) {
-        printf("Usage: %s <file_to_patch>\n", argv[0]);
-        return 1;
-    }
+    /* Get full file path */
+    char fullFilePath[MAX_PATH];
+    GetFullPathName(gameName, MAX_PATH, fullFilePath, NULL);
     
-    fp = fopen(argv[1], "rb+");
+    /* Open the file */
+    fp = fopen(fullFilePath, "rb+");
     if (fp == NULL) {
         printf("Error opening file\n");
-        return 1;
+        return;
     }
 
     /* Search for the offset of PE header */
@@ -47,7 +71,44 @@ int main(int argc, char **argv) {
     fseek(fp, pe_offset + MSV_OFFSET, SEEK_SET);
     putc(NT5_MAJOR, fp);
 
-    /* Close the file and exit */
+    /* Close the file  */
     fclose(fp);
-    return 0;
+}
+
+int main(int argc, char **argv) {
+    printf("Welcome to TouhouXP!\n\n");
+
+    /* Find games */
+    printf("Found games: ");
+    char foundGames[GAMES_COUNT][GAME_NAME_BUF];
+    int foundGamesCount = 0;
+    for (int i = 0; i < GAMES_COUNT; i++) {
+        if (_access(GAMES[i], 0) == 0) {
+            printf("%s ", GAMES[i]);
+            strncpy(foundGames[foundGamesCount], GAMES[i], GAME_NAME_BUF);
+            foundGamesCount++;
+        }
+    }
+
+    if (foundGamesCount == 0) {
+        printf("\rCouldn't find any games. Exitting...\n"); /* Overrides the "Found games" line */
+        loudExit(-1);
+    }
+
+    printf("\nPatch all of them? (y/n)\n");
+    if (!choice()) {
+        printf("Exitting...\n");
+        loudExit(1);
+    }
+
+    printf("!!! IF IT TAKES MORE THAN 10 SECONDS TO PATCH A FILE, RESTART THE PATCHER !!!\n");
+
+    /* Patch */
+    for (int i = 0; i < foundGamesCount; i++) {
+        printf("Patching %s\n", foundGames[i]);
+        patchGame(foundGames[i]);
+    }
+    printf("All patched!\n");
+
+    loudExit(0);
 }
