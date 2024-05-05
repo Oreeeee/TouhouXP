@@ -6,7 +6,7 @@ This patch modifies the header values of the executables to require Windows 2000
 ## Installation
 
 ### Unmodified Windows XP
-Download patcher.exe from Releases (or compile it from source) and drag and drop the executable for thXX.exe and custom.exe separately onto the patcher. If you use THCRAP don't worry about the errors and warnings about an unrecognized game, it will work fine. Updating DirectX 9 to June 2010 can be nescesarry [link](https://dl.bobpony.com/software/dx/directx_Jun2010_redist.zip).
+Download patcher.exe from Releases (or compile it from source), put it into the game folder, execute it and type "y" (for yes). If you use THCRAP don't worry about the errors and warnings about an unrecognized game, it will work fine. Updating DirectX 9 to June 2010 can be nescesarry [link](https://dl.bobpony.com/software/dx/directx_Jun2010_redist.zip).
 
 ### Windows 2000 with Extended Kernel
 No patching is nescesarry. However, you will need to update your DirectX 9 to December 2006 [link](https://dl.bobpony.com/software/dx/DX9/directx_dec2006_redist.exe) and download the DirectX 9 June 2010 [link](https://dl.bobpony.com/software/dx/directx_Jun2010_redist.zip). Due to the installer of June 2010 exitting on W2K, you will have to install 2 DLLs into the game files manually.
@@ -24,9 +24,10 @@ However, future games without networking might be patchable.
 
 ## TODO
 - Fix custom.exe issues
-- Make a more user friendly patcher
 
 ## Screenshots
+![Patcher running on Windows XP](assets/patcher.png)
+
 ![th17 on Windows XP](assets/th17.png)
 
 ![th18 on Windows XP](assets/th18.png)
