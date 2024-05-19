@@ -20,9 +20,9 @@ gcc -m32 -O2 -s -o patcher.exe patcher.c
 #define MSV_OFFSET 0x48 /* MajorSubsystemVersion */
 #define NT5_MAJOR 0x5 /* NT 5.0 (W2K) */
 #define GAME_NAME_BUF 16
-#define GAMES_COUNT 3
+#define GAMES_COUNT 4
 
-const char GAMES[GAMES_COUNT][GAME_NAME_BUF] = {"th17.exe", "th18.exe", "custom.exe"};
+const char GAMES[GAMES_COUNT][GAME_NAME_BUF] = {"th17.exe", "th18.exe", "th185.exe", "custom.exe"};
 
 bool choice() {
     char in = tolower(getch());
