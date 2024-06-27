@@ -43,7 +43,7 @@ void patchGame(const char *gameName) {
     int pe_offset = 0;
     char readBuf[3];
 
-    /* Get full file path */
+    /* Get full file path, otherwise Windows will read the wrong file (?) */
     char fullFilePath[MAX_PATH];
     GetFullPathName(gameName, MAX_PATH, fullFilePath, NULL);
     
